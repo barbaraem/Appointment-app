@@ -26,6 +26,13 @@ SECRET_KEY = '_e=1zga+l$0e!skpqdpz5q1bj5*y0*53fh@e_!_o%px3r)b1&q'
 # TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER')
 TWILIO_NUMBER = "+48799449274"
 
+# Address of Redis instance, our Celery broker
+BROKER_URL = 'redis://localhost:6379/0'
+BROKER_POOL_LIMIT = 8
+
+# Reminder time: how early text messages are sent in advance of appointments
+REMINDER_TIME = 30 # minutes
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -64,7 +71,7 @@ ROOT_URLCONF = 'appointment_reminders.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['{}/templates'.format(BASE_DIR)],
+        'DIRS': ['templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +83,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'appointment_reminders.wsgi.application'
 
@@ -111,5 +120,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+
+STATIC_ROOT = BASE_DIR + '/staticfiles'
 
 STATIC_URL = '/static/'
